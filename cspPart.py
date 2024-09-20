@@ -1,14 +1,16 @@
 from constraint import *
 from pandasPart import list_of_subjects, list_of_slots
+import pandas as pd
 
 # Your existing problem setup
 problem = Problem()
 CONSTRAINTS = []
 
-for a, b in zip(list_of_subjects, list_of_slots):
-    problem.addVariable(a, b)
+# Add variables to the problem
+for subject, slots in zip(list_of_subjects, list_of_slots):
+    problem.addVariable(subject, slots)
 
-# Creating constraints to ensure different subjects have different slots
+# Create constraints to ensure different subjects have different slots
 for i in range(len(list_of_subjects)):
     for j in range(i + 1, len(list_of_subjects)):
         if list_of_subjects[i] != list_of_subjects[j]:
@@ -20,7 +22,7 @@ for x, y in CONSTRAINTS:
 # Get all solutions
 solutions = problem.getSolutions()
 
-# Define the subject priority mapping
+# Subject and slot priority mappings
 subject_priority_mapping = {
     'Java': 1,
     'DSA': 2,
@@ -29,7 +31,6 @@ subject_priority_mapping = {
     'Calculus': 5
 }
 
-# Define the slot priority mapping
 slot_priority_mapping = {
     'Java': [(31, 32), (39, 40), (45, 46), (59, 60)],
     'DSA': [(31, 32), (35, 36), (41, 42)],
@@ -38,32 +39,31 @@ slot_priority_mapping = {
     'Calculus': [(39, 40), (31, 32), (59, 60)]
 }
 
-# Function to sort solutions based on score and subject priority
-def sort_solutions(solutions):
-    return sorted(solutions, key=lambda sol: (
-        -score_solution(sol),  # Negative for descending order
-        [subject_priority_mapping[subject] for subject in list_of_subjects]
-    ))
-
-# Function to score each solution
 def score_solution(solution):
-    score = 0
+    total_score = 0
+    num_slots = 4  # Adjust this if the number of slots changes for any subject
     for subject in list_of_subjects:
         slot = solution[subject]
-        # Increase score based on slot's index in the priority list
-        score += len(slot_priority_mapping[subject]) - slot_priority_mapping[subject].index(slot)
-    return score
+        index = slot_priority_mapping[subject].index(slot)
+        # Calculate score based on index
+        score = 1 - (index / (num_slots - 1))  # Scale the score between 0 and 1
+        total_score += score
+    return total_score
+
+def sort_solutions(solutions):
+    return sorted(solutions, key=lambda sol: (-score_solution(sol), [subject_priority_mapping[subject] for subject in list_of_subjects]))
 
 # Sort the solutions
 sorted_solutions = sort_solutions(solutions)
 
-# Print headers
-header = " | ".join(subject_priority_mapping.keys()) + " | Score"
-print(header)
-print("-" * (len(header) + 6))  # Adjust the length for the score column
-
-# Print sorted solutions with scores
+# Create a DataFrame for the sorted solutions
+output_data = []
 for solution in sorted_solutions:
     score = score_solution(solution)
-    row = " | ".join(f"{subject}: {solution[subject]}" for subject in sorted(subject_priority_mapping.keys(), key=lambda s: subject_priority_mapping[s]))
-    print(f"{row} | {score}")
+    output_data.append({subject: solution[subject] for subject in list_of_subjects})
+    output_data[-1]['Score'] = score
+
+df = pd.DataFrame(output_data)
+
+# Display the DataFrame
+print(df)
