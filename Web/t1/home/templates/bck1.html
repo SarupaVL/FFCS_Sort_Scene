@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Your Code</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .upload-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+
+        .btn-custom {
+            background-color: #ff5722;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-custom:hover {
+            background-color: #e64a19;
+        }
+
+        .custom-file {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .custom-file-input {
+            display: none;
+        }
+
+        .custom-file-label {
+            display: block;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .custom-file-label::after {
+            content: "Browse";
+            background-color: #ff5722;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .table-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .table-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="upload-container">
+        <h1>Upload Your Code</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="custom-file">
+                <input type="file" name="file" class="custom-file-input" id="fileInput" required>
+                <label class="custom-file-label" for="fileInput">Choose file</label>
+            </div>
+            <button type="submit" class="btn btn-custom">Upload</button>
+        </form>
+    </div>
+
+    <!-- Display solutions table if available -->
+    {% if solutions %}
+    <div class="table-container">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Subject</th>
+                    <th>Slot</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solution in solutions %}
+                    <tr>
+                        <td>Java</td>
+                        <td>{{ solution.Java }}</td>
+                        <td rowspan="5">{{ solution.Score }}</td>  <!-- Ensure rowspan works for this section -->
+                    </tr>
+                    <tr>
+                        <td>DSA</td>
+                        <td>{{ solution.DSA }}</td>
+                    </tr>
+                    <tr>
+                        <td>English</td>
+                        <td>{{ solution.English }}</td>
+                    </tr>
+                    <tr>
+                        <td>DSD</td>
+                        <td>{{ solution.DSD }}</td>
+                    </tr>
+                    <tr>
+                        <td>Calculus</td>
+                        <td>{{ solution.Calculus }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Update the label to show the file name
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            var fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file';
+            var label = document.querySelector('.custom-file-label');
+            label.textContent = fileName;
+        });
+    </script>
+</body>
+</html>
