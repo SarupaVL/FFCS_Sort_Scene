@@ -1,8 +1,23 @@
-from constraint import *
-from pandasPart import list_of_subjects, list_of_slots
 import pandas as pd
+from constraint import *
+from pandasPart import list_of_subjects, list_of_slots  # Assuming these are loaded in your other file
 
-# Your existing problem setup
+# Load the teacher-slot mapping from the new Excel file
+teacher_slot_df = pd.read_excel('TeachersAndSlots.xlsx')
+
+# Create a nested dictionary mapping subjects to their respective slot-to-teacher mappings
+subject_teacher_mapping = {}
+for index, row in teacher_slot_df.iterrows():
+    teacher = row['Teacher']
+    slot = tuple(map(int, row['Slots'].replace('(', '').replace(')', '').split(',')))
+    subject_name = teacher.split('_')[0]  # Extract the subject name prefix from the teacher's name
+    
+    if subject_name not in subject_teacher_mapping:
+        subject_teacher_mapping[subject_name] = {}
+    
+    subject_teacher_mapping[subject_name][slot] = teacher
+
+# Existing problem setup
 problem = Problem()
 CONSTRAINTS = []
 
@@ -22,46 +37,51 @@ for x, y in CONSTRAINTS:
 # Get all solutions
 solutions = problem.getSolutions()
 
-# Subject and slot priority mappings
-subject_priority_mapping = {
-    'Java': 1,
-    'DSA': 2,
-    'English': 3,
-    'DSD': 4,
-    'Calculus': 5
-}
-
+# Create a slot priority mapping dynamically from the loaded data
 slot_priority_mapping = {
-    'Java': [(31, 32), (39, 40), (45, 46), (59, 60)],
-    'DSA': [(31, 32), (35, 36), (41, 42)],
-    'English': [(51, 52), (39, 40), (41, 42)],
-    'DSD': [(45, 46), (51, 52), (31, 32)],
-    'Calculus': [(39, 40), (31, 32), (59, 60)]
+    subject: slots for subject, slots in zip(list_of_subjects, list_of_slots)
 }
 
+# Scoring function for solutions
 def score_solution(solution):
     total_score = 0
-    num_slots = 4  # Adjust this if the number of slots changes for any subject
+    num_slots = max(len(slots) for slots in slot_priority_mapping.values())  # Determine the maximum number of slots
     for subject in list_of_subjects:
         slot = solution[subject]
-        index = slot_priority_mapping[subject].index(slot)
-        # Calculate score based on index
-        score = 1 - (index / (num_slots - 1))  # Scale the score between 0 and 1
+        if slot in slot_priority_mapping[subject]:
+            index = slot_priority_mapping[subject].index(slot)
+            score = 1 - (index / (num_slots - 1))  # Scale the score between 0 and 1
+        else:
+            score = 0  # If slot is not found, score it as 0
         total_score += score
     return total_score
 
+# Sort solutions
 def sort_solutions(solutions):
-    return sorted(solutions, key=lambda sol: (-score_solution(sol), [subject_priority_mapping[subject] for subject in list_of_subjects]))
+    subject_priority_mapping = {
+        'Java': 1,
+        'DSA': 2,
+        'English': 3,
+        'DSD': 4,
+        'Calculus': 5
+    }
+    return sorted(
+        solutions,
+        key=lambda sol: (-score_solution(sol), [subject_priority_mapping.get(subject, 0) for subject in list_of_subjects])
+    )
 
 # Sort the solutions
 sorted_solutions = sort_solutions(solutions)
 
-# Create a DataFrame for the sorted solutions
+# Create DataFrame for sorted solutions and map slots to the correct teacher names based on the subject
 output_data = []
 for solution in sorted_solutions:
-    score = score_solution(solution)
-    output_data.append({subject: solution[subject] for subject in list_of_subjects})
-    output_data[-1]['Score'] = score
+    solution_data = {
+        subject: subject_teacher_mapping.get(subject, {}).get(solution[subject], solution[subject])
+        for subject in list_of_subjects
+    }
+    solution_data['Score'] = score_solution(solution)
+    output_data.append(solution_data)
 
 df = pd.DataFrame(output_data)
 
