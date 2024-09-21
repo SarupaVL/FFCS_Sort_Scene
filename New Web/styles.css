@@ -1,0 +1,80 @@
+/* FFCS SortScene */
+.ffcs-title {
+    color: black;
+    font-size: 120px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* may thy ffcs beest did bless with valorous int'rnet :D */
+.ffcs-subtitle {
+    color: black;
+    font-size: 24px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* CONTACT */
+.contact {
+    color: black;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* HELP */
+.help {
+    color: black;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* GITHUB */
+.github {
+    color: black;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* HOW TO USE */
+.how-to-use {
+    color: black;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* PREMIUM */
+.premium {
+    color: #BEBEBE;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* LET’S GET STARTED! */
+.get-started {
+    color: black;
+    font-size: 24px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* Quote */
+.quote {
+    color: #EBEBEB;
+    font-size: 24px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}

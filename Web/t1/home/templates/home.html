@@ -4,122 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FFCS SortScene</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet"> <!-- Modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             height: 100%;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            font-family: 'Roboto', sans-serif; /* Updated font */
-            overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+            background: white;
+            overflow-x: hidden;
         }
-
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 0;
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            padding: 0 20px;
+            position: relative;
+        }
+        .nav-links a:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 1px;
+            background-color: #ccc;
+        }
+        .download-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
         .welcome-section {
             text-align: center;
             padding: 50px;
-            background: rgba(255, 255, 255, 0.9); /* Transparent background */
-            border-radius: 20px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            z-index: 2; /* Ensure it stays above the mouse trail */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 80px); /* Adjust for header height */
         }
-
-        .welcome-section:hover {
-            transform: translateY(-10px);
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            color: #343a40;
+        .welcome-section h1 {
+            font-size: 80px;
+            color: rgb(0, 0, 0);
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
             margin-bottom: 20px;
-            font-weight: 700; /* Bold font */
         }
-
-        p {
-            font-size: 1.3rem;
-            color: #555555;
+        .welcome-section p {
+            font-size: 24px;
+            color: rgb(0, 0, 0);
             margin-bottom: 30px;
         }
-
         .btn-custom {
-            background-color: #ff5722;
-            color: white;
+            background-color: rgb(24, 201, 47);
+            color: rgb(0, 0, 0);
             padding: 12px 35px;
             font-size: 1.2rem;
             border-radius: 50px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.5);
-            text-decoration: none; /* Remove underline */
+            border: 1px solid black;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, color 0.3s ease;
         }
-
         .btn-custom:hover {
-            background-color: #e64a19;
+            background-color: black;
+            color: white;
             transform: scale(1.05);
         }
-
-        .btn-custom:focus {
-            outline: none;
-            box-shadow: 0 0 0 0.2rem rgba(255, 87, 34, 0.5);
-        }
-
-        /* Style for the mouse trail circles */
         .trail-circle {
             position: absolute;
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.7);
             pointer-events: none;
             animation: fadeOut 1s forwards;
         }
-
         @keyframes fadeOut {
             0% { opacity: 1; transform: scale(1); }
             100% { opacity: 0; transform: scale(0); }
         }
+        .welcome-logo {
+            width: 100px; /* Adjust size as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px; /* Space below the logo */
+        }
     </style>
 </head>
 <body>
+    <header class="header">
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" fill="white"/>
+                <path d="M5 5H19V19H5V5Z" stroke="black" stroke-width="2"/>
+                <path d="M9 9H15V15H9V9Z" fill="black"/>
+            </svg>
+            FFCS SortScene
+        </div>
+        <nav class="nav-links">
+            <a href="#">Button one</a>
+            <a href="#">Button two</a>
+            <a href="#">Button three</a>
+            <a href="#">Button four</a>
+        </nav>
+        <a href="#" class="download-btn">Random button yoooooooooo</a>
+    </header>
 
     <div class="welcome-section">
-        <h1>FFCS SortScene</h1>
+        <img src="C:\Users\imrit\OneDrive\Desktop\Projects\FFCS_Sort_Scene\Images\Screenshot 2024-09-21 152742.png" alt="FFCS SortScene Logo" class="welcome-logo">
         <p>May thy be blessed with bad internet on FFCS</p>
-        <a href="{% url 'bck1' %}" class="btn btn-custom">Enter HELL!!</a> <!-- Button links to the code page -->
+        <h1>FFCS SortScene.</h1>
+        <a href="{% url 'bck1' %}" class="btn-custom">Enter HELL!!</a>
     </div>
 
-    <!-- Script to create the mouse trail -->
     <script>
         document.addEventListener('mousemove', function(e) {
-            // Create a trail circle element
             let trail = document.createElement('div');
             trail.classList.add('trail-circle');
-            
-            // Set the position of the circle
             trail.style.left = e.pageX + 'px';
             trail.style.top = e.pageY + 'px';
-            
-            // Randomize the color
-            let colors = ['#ff6b6b', '#ffdd59', '#1dd1a1', '#54a0ff', '#f368e0'];
+            let colors = ["rgb(24, 201, 47)", "rgb(18, 140, 32)", "rgb(12, 89, 21)", "rgb(5, 40, 9)"];
             trail.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Append to the body
             document.body.appendChild(trail);
-            
-            // Remove the trail circle after animation ends
             setTimeout(function() {
                 trail.remove();
-            }, 1000); // Matches the duration of the fade-out animation
+            }, 1000);
         });
     </script>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
