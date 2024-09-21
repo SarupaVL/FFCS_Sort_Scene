@@ -58,7 +58,7 @@ for x, y in CONSTRAINTS:
 # Get all solutions
 solutions = problem.getSolutions()
 
-# Function to score solutions
+# Function to score solutions based on slot priority
 def score_solution(solution):
     total_score = 0
     num_slots = max(len(slots) for slots in slot_priority_mapping.values())  # Determine the maximum number of slots
@@ -72,19 +72,9 @@ def score_solution(solution):
         total_score += score
     return total_score
 
-# Function to sort solutions
+# Function to sort solutions based purely on slot-wise scores
 def sort_solutions(solutions):
-    subject_priority_mapping = {
-        'Java': 1,
-        'DSA': 2,
-        'English': 3,
-        'DSD': 4,
-        'Calculus': 5
-    }
-    return sorted(
-        solutions,
-        key=lambda sol: (-score_solution(sol), [subject_priority_mapping.get(subject, 0) for subject in list_of_subjects])
-    )
+    return sorted(solutions, key=lambda sol: -score_solution(sol))
 
 # Sort the solutions
 sorted_solutions = sort_solutions(solutions)
@@ -103,5 +93,5 @@ for solution in sorted_solutions:
 
 df_output = pd.DataFrame(output_data)
 
-# Display the DataFrame
+#Display the DataFrame
 print(df_output)
