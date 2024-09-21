@@ -1,0 +1,304 @@
+.desktop-4-child {
+    position: absolute;
+    top: 2008px;
+    left: 0px;
+    width: 1440px;
+    height: 1237px;
+}
+.desktop-4-item {
+    position: absolute;
+    top: -2px;
+    left: 0px;
+    width: 1440px;
+    height: 175px;
+}
+.ffcs-sortscene {
+    position: absolute;
+    top: 42px;
+    left: 176px;
+    font-size: 48px; /* Keep the size */
+    display: inline-block;
+    text-align: left;
+    width: 414px;
+    height: 67px;
+    font-family: Lexend ; /* Set the font to match */
+    color: black; /* Ensure text color is consistent */
+}
+
+.may-thy-ffcs {
+    position: absolute;
+    top: 102px;
+    left: 180px;
+    font-size: 12px;
+    display: inline-block;
+    width: 320px;
+    height: 22px;
+}
+.contact {
+    position: absolute;
+    top: 25%;
+    left: 62.97%;
+}
+.help {
+    position: absolute;
+    top: 25%;
+    left: 90.96%;
+}
+
+.how-to-use, .github, .help, .contact, .continue{
+    position: absolute;
+    top: 25%; /* Adjust the top position as needed */
+    font-size: 24px; /* Adjusted size to match the rest */
+    font-family: Lexend, sans-serif; /* Ensured the font matches */
+    padding: 10px 20px; /* Added padding for better appearance */
+    background-color: transparent; /* Optional: to remove background */
+    color: black; /* Default text color */
+    cursor: pointer; /* Make it clear it's clickable */
+    border: none; /* Remove border */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.how-to-use:hover, .github:hover, .help:hover, .contact:hover{
+    background-color: #8480a6; /* Change button background color on hover */
+    color: rgb(255, 255, 255); /* Optional: change text color on hover */
+    border-radius: 0px; /* Rounded corners */
+}
+
+.component-2-child {
+    position: absolute;
+    height: 100%;
+    width: 29.86%;
+    top: 0%;
+    right: 70.14%;
+    bottom: 0%;
+    left: 0%;
+    background-color: #8480a6;
+}
+.github {
+    position: absolute;
+    top: 25%;
+    left: 37.54%;
+}
+.how-to-use {
+    position: absolute;
+    top: 25%;
+    left: 3.92%;
+}
+.component-2 {
+    position: absolute;
+    top: 48px;
+    left: 781px;
+    width: 586px;
+    height: 52px;
+    text-align: center;
+}
+.component-4-icon {
+    position: absolute;
+    top: 48px;
+    left: 57px;
+    width: 86px;
+    height: 101px;
+}
+.desktop-4-inner {
+    position: absolute;
+    top: 284px;
+    left: 100px;
+    background-color: #cec9ff;
+    width: 839px;
+    height: 52px;
+}
+.rectangle-div {
+    position: absolute;
+    top: 418px;
+    left: 100px;
+    background-color: #cec9ff;
+    width: 337px;
+    height: 52px;
+}
+.desktop-4-child1 {
+    position: absolute;
+    top: 418px;
+    left: 437px;
+    background-color: #8480a6;
+    width: 52px;
+    height: 52px;
+}
+.course-name {
+    position: absolute;
+    top: 248px;
+    left: 100px;
+    color: #ebebeb;
+    display: inline-block;
+    width: 269px;
+    height: 36px;
+}
+.slots-in-your {
+    position: absolute;
+    top: 382px;
+    left: 99px;
+    color: #ebebeb;
+    display: inline-block;
+    width: 322px;
+    height: 36px;
+}
+.data-structures-and {
+    position: absolute;
+    top: 297px;
+    left: 114px;
+    display: inline-block;
+    width: 842px;
+    height: 29px;
+}
+.preferred-slots {
+    position: absolute;
+    top: 431px;
+    left: 114px;
+    color: #868686;
+    display: inline-block;
+    width: 298px;
+    height: 29px;
+}
+.div {
+    position: absolute;
+    top: 416px;
+    left: 452px;
+    font-size: 40px;
+    display: inline-block;
+    width: 27px;
+    height: 52px;
+}
+.desktop-4-child2 {
+    position: absolute;
+    top: 418px;
+    left: 602px;
+    background-color: #cec9ff;
+    width: 337px;
+    height: 52px;
+}
+.desktop-4-child3 {
+    position: absolute;
+    top: 418px;
+    left: 939px;
+    background-color: #8480a6;
+    width: 52px;
+    height: 52px;
+}
+.faculties-in-your {
+    position: absolute;
+    top: 382px;
+    left: 601px;
+    color: #ebebeb;
+    display: inline-block;
+    width: 390px;
+    height: 36px;
+}
+.div1 {
+    position: absolute;
+    top: 416px;
+    left: 954px;
+    font-size: 40px;
+    display: inline-block;
+    width: 27px;
+    height: 52px;
+}
+.component-5-icon {
+    position: absolute;
+    top: 266px;
+    left: 1150px;
+    width: 400px;
+    height: 439.8px;
+    object-fit: contain;
+}
+.submit {
+    position: absolute;
+    top: 0px; /* Adjust this to align with other buttons */
+    left: 0px; /* Adjust the left position as needed */
+    font-size: 24px; /* Size to match the other buttons */
+    font-family: Lexend, sans-serif; /* Ensured the font matches */
+    padding: 10px 20px; /* Added padding for better appearance */
+    background-color: black; /* Default background is black */
+    color: #ffffff; /* Default text color */
+    cursor: pointer; /* Make it clear it's clickable */
+    border: 2px solid transparent; /* Optional: transparent border for uniform size */
+    border-radius: 0px; /* Rounded corners */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.submit:hover {
+    background-color: #8480a6; /* Change button background color on hover */
+    color: rgb(0, 0, 0); /* Optional: change text color on hover */
+    border-radius: 0px;
+
+}
+
+.component-6 {
+    position: absolute;
+    top: 770px;
+    left: 357px;
+    border-radius: 10px;
+    width: 190px;
+    height: 52px;
+}
+.continue {
+    position: absolute;
+    top: 0px; /* Adjust this to align with other buttons */
+    left: 16px; /* Adjust the left position as needed */
+    font-size: 24px; /* Size to match the other buttons */
+    font-family: Lexend, sans-serif; /* Ensured the font matches */
+    padding: 10px 20px; /* Added padding for better appearance */
+    background-color: black; /* Default background is black */
+    color: #ffffff; /* Default text color */
+    cursor: pointer; /* Make it clear it's clickable */
+    border: 2px solid transparent; /* Optional: transparent border for uniform size */
+    border-radius: 0px; /* Rounded corners */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.continue:hover {
+    background-color: #8480a6; /* Change button background color on hover */
+    color: rgb(0, 0, 0); /* Optional: change text color on hover */
+    border-radius: 0px;
+
+}
+
+.component-10 {
+    position: absolute;
+    top: 770px;
+    left: 99px;
+    width: 190px;
+    height: 52px;
+}
+.your-preferences {
+    position: absolute;
+    height: 1.65%;
+    width: 29.44%;
+    top: 22.22%;
+    left: 6.94%;
+    font-size: 48px;
+    color: #fff;
+    display: inline-block;
+}
+.desktop-4-child4 {
+    position: absolute;
+    top: 1004px;
+    left: 1972px;
+    background-color: rgba(208, 203, 255, 0.8);
+    border: 4px solid #000;
+    box-sizing: border-box;
+    width: 817px;
+    height: 865px;
+}
+.desktop-4 {
+    width: 100%;
+    position: relative;
+    background-color: #000;
+    background: linear-gradient(to bottom, #ffffff 5%, #000000 5%); 
+    box-sizing: border-box;
+    height: 4060px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 20px;
+    color: #000;
+    font-family: Lexend;
+}
+
