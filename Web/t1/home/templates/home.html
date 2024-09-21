@@ -30,6 +30,7 @@
             width: 24px;
             height: 24px;
             margin-right: 5px;
+<<<<<<< HEAD
         }
         .nav-links {
             display: flex;
@@ -64,6 +65,43 @@
             text-decoration: none;
             font-size: 14px;
         }
+=======
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            padding: 0 20px;
+            position: relative;
+        }
+        .nav-links a:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 1px;
+            background-color: #ccc;
+        }
+        .download-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+>>>>>>> c2ffc1f6f5706035c76e73c7a8e2aeb0a4849172
         .welcome-section {
             text-align: center;
             padding: 50px;
@@ -141,7 +179,10 @@
     </header>
 
     <div class="welcome-section">
+<<<<<<< HEAD
         <img src="C:\Users\imrit\OneDrive\Desktop\Projects\FFCS_Sort_Scene\Images\Screenshot 2024-09-21 152742.png" alt="FFCS SortScene Logo" class="welcome-logo">
+=======
+>>>>>>> c2ffc1f6f5706035c76e73c7a8e2aeb0a4849172
         <p>May thy be blessed with bad internet on FFCS</p>
         <h1>FFCS SortScene.</h1>
         <a href="{% url 'bck1' %}" class="btn-custom">Enter HELL!!</a>
