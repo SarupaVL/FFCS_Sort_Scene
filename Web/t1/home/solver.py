@@ -59,20 +59,28 @@ def solve_problem(subject_slots, subject_teacher_mappings):
         return total_score
 
     # Prepare the output, including teacher mapping and scores
+    # Prepare the output, including teacher mapping and scores
     output_data = []
     for solution in solutions:
         score = score_solution(solution)  # Calculate score once per solution
+        timetable_entry = {
+            'Score': score,
+            'Timetable': []  # Create a list to hold subject-slot-teacher tuples
+        }
+        
         for subject in list_of_subjects:
             slot = solution[subject]
             teachers_for_slot = [teacher for teacher, slot_ in subject_slot_teacher_mapping[subject] if slot_ == slot]
-
-            # Prepare subject, slot, and teacher for output
-            output_data.append({
+            
+            # Append subject, slot, and teachers to the timetable entry
+            timetable_entry['Timetable'].append({
                 'subject': subject,
                 'slot': slot,
-                'teachers': ', '.join(teachers_for_slot),
-                'Score': score
+                'teachers': ', '.join(teachers_for_slot)
             })
+        
+        # Append the complete timetable entry to output data
+        output_data.append(timetable_entry)
 
     # Create a DataFrame from the output data
     df_output = pd.DataFrame(output_data)

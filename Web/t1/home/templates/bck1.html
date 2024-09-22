@@ -25,7 +25,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Add Subject</button>
             <button type="submit" name="submit" id="submit-all" class="btn btn-success">Submit All</button>
-            <!-- Add the refresh button -->
             <button type="submit" name="refresh" class="btn btn-danger">Refresh</button>
         </form>
 
@@ -36,7 +35,7 @@
                 <tr>
                     <th>Subject</th>
                     <th>Preferred Slots</th>
-                    <th>Preferred Teachers</th>  <!-- New column for teachers -->
+                    <th>Preferred Teachers</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,8 +43,8 @@
                     {% for subject, details in subject_entry.items %}
                     <tr>
                         <td>{{ subject }}</td>
-                        <td>{{ details.slots }}</td> <!-- Accessing slots -->
-                        <td>{{ details.teachers|join:", " }}</td> <!-- Accessing teachers -->
+                        <td>{{ details.slots }}</td>
+                        <td>{{ details.teachers|join:", " }}</td>
                     </tr>
                     {% endfor %}
                 {% endfor %}
@@ -57,26 +56,35 @@
 
         {% if solutions %}
         <h2>Scheduling Solutions</h2>
-        <table class="table table-bordered table-hover mt-3">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Subject</th>
-                    <th>Slot</th>
-                    <th>Teachers</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for solution in solutions %}
-                <tr>
-                    <td>{{ solution.subject }}</td>
-                    <td>{{ solution.slot }}</td>
-                    <td>{{ solution.teachers }}</td>
-                    <td>{{ solution.Score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>        
+        {% with last_score=None %}
+            {% for solution in solutions %}
+                {% if last_score != solution.Score %}
+                    <div class="mt-4">
+                        <h3>Timetable for Score: {{ solution.Score }}</h3>
+                        <table class="table table-bordered table-hover mt-3">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Slot</th>
+                                    <th>Teachers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sol in solution.Timetable %}
+                                    <tr>
+                                        <td>{{ sol.subject }}</td>
+                                        <td>{{ sol.slot }}</td>
+                                        <td>{{ sol.teachers }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% with last_score=solution.Score %}
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
         {% else %}
         <p>No solutions available.</p>
         {% endif %}
