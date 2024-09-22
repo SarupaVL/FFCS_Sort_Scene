@@ -1,206 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FFCS SortScene</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background: white;
-            overflow-x: hidden;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #ffffff;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-        .logo-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 5px;
-<<<<<<< HEAD
-        }
-        .nav-links {
-            display: flex;
-            gap: 0;
-            background-color: #f0f0f0;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin: 0 auto;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            padding: 0 20px;
-            position: relative;
-        }
-        .nav-links a:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 60%;
-            width: 1px;
-            background-color: #ccc;
-        }
-        .download-btn {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-=======
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0;
-            background-color: #f0f0f0;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin: 0 auto;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            padding: 0 20px;
-            position: relative;
-        }
-        .nav-links a:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 60%;
-            width: 1px;
-            background-color: #ccc;
-        }
-        .download-btn {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 14px;
-        }
->>>>>>> c2ffc1f6f5706035c76e73c7a8e2aeb0a4849172
-        .welcome-section {
-            text-align: center;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: calc(100vh - 80px); /* Adjust for header height */
-        }
-        .welcome-section h1 {
-            font-size: 80px;
-            color: rgb(0, 0, 0);
-            font-family: 'Roboto', sans-serif;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .welcome-section p {
-            font-size: 24px;
-            color: rgb(0, 0, 0);
-            margin-bottom: 30px;
-        }
-        .btn-custom {
-            background-color: rgb(24, 201, 47);
-            color: rgb(0, 0, 0);
-            padding: 12px 35px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            border: 1px solid black;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s ease, color 0.3s ease;
-        }
-        .btn-custom:hover {
-            background-color: black;
-            color: white;
-            transform: scale(1.05);
-        }
-        .trail-circle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: fadeOut 1s forwards;
-        }
-        @keyframes fadeOut {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0); }
-        }
-        .welcome-logo {
-            width: 100px; /* Adjust size as needed */
-            height: auto; /* Maintain aspect ratio */
-            margin-bottom: 20px; /* Space below the logo */
-        }
-    </style>
+    <!-- Load the static files -->
+    {% load static %}
+    <!-- Link to the new CSS file -->
+    <link href="{% static 'css/home_style.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="24" height="24" fill="white"/>
-                <path d="M5 5H19V19H5V5Z" stroke="black" stroke-width="2"/>
-                <path d="M9 9H15V15H9V9Z" fill="black"/>
-            </svg>
-            FFCS SortScene
+    <div class="desktop-3">
+        <img class="desktop-3-child" alt="" src="{% static 'images/Rectangle 19.svg' %}">
+        <div class="ffcs-sortscene">FFCS SortScene.</div>
+        <div class="may-thy-ffcs">may thy ffcs beest did bless with valorous int'rnet :D</div>
+        <div class="component-2">
+            <button class="contact">CONTACT</button>
+            <button class="help">HELP</button>
+            <div class="component-2-child"></div>
+            <div class="github-background"></div>
+            <button class="github">GITHUB</button>
+            <button class="how-to-use">HOW TO USE</button>
         </div>
-        <nav class="nav-links">
-            <a href="#">Button one</a>
-            <a href="#">Button two</a>
-            <a href="#">Button three</a>
-            <a href="#">Button four</a>
-        </nav>
-        <a href="#" class="download-btn">Random button yoooooooooo</a>
-    </header>
-
-    <div class="welcome-section">
-<<<<<<< HEAD
-        <img src="C:\Users\imrit\OneDrive\Desktop\Projects\FFCS_Sort_Scene\Images\Screenshot 2024-09-21 152742.png" alt="FFCS SortScene Logo" class="welcome-logo">
-=======
->>>>>>> c2ffc1f6f5706035c76e73c7a8e2aeb0a4849172
-        <p>May thy be blessed with bad internet on FFCS</p>
-        <h1>FFCS SortScene.</h1>
-        <a href="{% url 'bck1' %}" class="btn-custom">Enter HELL!!</a>
+        <button class="premium">DONATE</button>
+        <div class="component-1">
+            <div class="component-1-child"></div>
+            <button class="lets-get-started" onclick="window.location.href='{% url 'bck1' %}'">LET’S GET STARTED!</button>
+            <img class="send-icon" alt="" src="{% static 'images/Send.svg' %}">
+        </div>
+        <img class="component-3-icon" alt="" src="{% static 'images/Component 4.svg' %}">
+        <div class="lorem-ipsum-dolor">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."
+        </div>
+        <img class="component-4-icon" alt="" src="{% static 'images/Component 4.svg' %}">
     </div>
-
-    <script>
-        document.addEventListener('mousemove', function(e) {
-            let trail = document.createElement('div');
-            trail.classList.add('trail-circle');
-            trail.style.left = e.pageX + 'px';
-            trail.style.top = e.pageY + 'px';
-            let colors = ["rgb(24, 201, 47)", "rgb(18, 140, 32)", "rgb(12, 89, 21)", "rgb(5, 40, 9)"];
-            trail.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            document.body.appendChild(trail);
-            setTimeout(function() {
-                trail.remove();
-            }, 1000);
-        });
-    </script>
 </body>
 </html>

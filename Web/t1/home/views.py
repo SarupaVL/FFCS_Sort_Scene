@@ -1,30 +1,49 @@
 from django.shortcuts import render
-from django.http import JsonResponse
-from .solver import load_data, solve_problem
-from django.core.files.storage import FileSystemStorage
+from .solver import solve_problem
+import ast  
+
+# In-memory storage for user input
+user_subjects = []  # This should be global to maintain state
+subject_teacher_mappings = {}
 
 def home_view(request):
     return render(request, 'home.html')
 
 def bck1(request):
-    if request.method == 'POST' and request.FILES.get('file'):
-        # Retrieve uploaded file
-        uploaded_file = request.FILES['file']
+    global user_subjects, subject_teacher_mappings
+    solutions = []
 
-        # Save the file (optional, if you need to save it)
-        fs = FileSystemStorage()
-        filename = fs.save(uploaded_file.name, uploaded_file)
+    if request.method == "POST":
+        if 'refresh' in request.POST:
+            # Clear the user_subjects list to reset the table
+            user_subjects = []
+            subject_teacher_mappings = {}
+        elif 'submit' not in request.POST:
+            subject = request.POST.get('subject', '').strip()
+            slots = request.POST.get('slots', '').strip()
+            teachers = request.POST.get('teacher', '').strip().split(',')
 
-        # Load the data from the Excel file
-        list_of_subjects, list_of_slots = load_data(uploaded_file)
+            if subject and slots:
+                try:
+                    parsed_slots = ast.literal_eval(slots)
+                    if isinstance(parsed_slots, (list, tuple)):
+                        # Store subject with both slots and teachers
+                        user_subjects.append({subject: {'slots': parsed_slots, 'teachers': teachers}})
+                    else:
+                        raise ValueError
+                except (ValueError, SyntaxError) as e:
+                    print("Error parsing slots:", e)
 
-        # Solve the constraint problem
-        solutions_df = solve_problem(list_of_subjects, list_of_slots)
+        if 'submit' in request.POST:
+            if user_subjects:
+                # Check contents of user_subjects before proceeding
+                print("User Subjects:", user_subjects)
 
-        # Convert DataFrame to a list of dictionaries
-        solutions_list = solutions_df.to_dict(orient='records')
+                subject_slots = {list(entry.keys())[0]: entry[list(entry.keys())[0]] for entry in user_subjects}
+                subject_teacher_mappings = {list(entry.keys())[0]: entry[list(entry.keys())[0]]['teachers'] for entry in user_subjects}
 
-        # Pass the solutions to the template for rendering
-        return render(request, 'solutions_table.html', {'solutions': solutions_list})
+                # Proceed with solving the problem
+                solutions_df = solve_problem(subject_slots, subject_teacher_mappings)
+                solutions = solutions_df.to_dict(orient='records')
 
-    return render(request, 'bck1.html')
+    return render(request, 'bck1.html', {'user_subjects': user_subjects, 'solutions': solutions})

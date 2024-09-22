@@ -1,88 +1,84 @@
-from constraint import Problem
 import pandas as pd
+from constraint import Problem
 import ast
 
-# Function to load data from an Excel file
-def load_data(uploaded_file):
-    # Load the Excel file into a DataFrame
-    df = pd.read_excel(uploaded_file, sheet_name='Sheet1')  # Adjust sheet name as per the actual file
+def solve_problem(subject_slots, subject_teacher_mappings):
+    print("Subject Slots:", subject_slots)
+    print("Subject Teacher Mappings:", subject_teacher_mappings)
 
-    # Initialize empty lists to store subjects and their corresponding slots
-    list_of_subjects = []
-    list_of_slots = []
+    # Create a list of subjects
+    list_of_subjects = list(subject_slots.keys())
 
-    # Loop through the DataFrame to extract subjects and slots
-    for i in range(len(df)):
-        # Assuming the subject is in the first column and slots are in the second column as a string
-        list_of_subjects.append(df.iloc[i, 0])
-        temp = df.iloc[i, 1]
-        list_of_slots.append(ast.literal_eval(f'[{temp}]'))  # Convert the string to a list of slots
+    # Extract the slots for each subject from the subject_slots dictionary
+    list_of_slots = [ast.literal_eval(str(details['slots'])) for details in subject_slots.values()]
 
-    return list_of_subjects, list_of_slots
+    # Create a dictionary to map subjects to their slot priorities
+    slot_priority_mapping = {subject: slots for subject, slots in zip(list_of_subjects, list_of_slots)}
 
-# Function to solve the constraint problem
-def solve_problem(list_of_subjects, list_of_slots):
+    # Initialize the constraint problem
     problem = Problem()
-    CONSTRAINTS = []
 
-    # Add variables to the problem
+    # Add variables for each subject and their available slots
     for subject, slots in zip(list_of_subjects, list_of_slots):
         problem.addVariable(subject, slots)
 
-    # Create constraints to ensure different subjects have different slots
+    # Prepare a new dictionary to map subjects to (professor, slot) tuples
+    subject_slot_teacher_mapping = {subject: [] for subject in list_of_subjects}
+
+    # Populate the mapping with professors and their corresponding slots
+    for subject, details in subject_teacher_mappings.items():
+        slots = ast.literal_eval(str(subject_slots[subject]['slots']))  # Ensure this matches your structure
+        teachers = details  # Assuming details directly contain the list of teachers
+        for i, teacher in enumerate(teachers):
+            if i < len(slots):
+                subject_slot_teacher_mapping[subject].append((teacher, slots[i]))
+
+    # Print the subject_slot_teacher_mapping for debugging
+    print("Subject Slot Teacher Mapping:", subject_slot_teacher_mapping)
+
+    # Add constraints to ensure different subjects do not share the same slot
     for i in range(len(list_of_subjects)):
         for j in range(i + 1, len(list_of_subjects)):
-            if list_of_subjects[i] != list_of_subjects[j]:
-                CONSTRAINTS.append((list_of_subjects[i], list_of_subjects[j]))
+            problem.addConstraint(lambda x, y: x != y, (list_of_subjects[i], list_of_subjects[j]))
 
-    for x, y in CONSTRAINTS:
-        problem.addConstraint(lambda x, y: x != y, (x, y))
-
-    # Get all solutions
+    # Get all possible solutions
     solutions = problem.getSolutions()
 
-    # Dynamically create slot priority mapping from the loaded data
-    slot_priority_mapping = {
-        subject: slots for subject, slots in zip(list_of_subjects, list_of_slots)
-    }
-
-    # Scoring function for solutions
+    # Function to score solutions based on slot priority
     def score_solution(solution):
         total_score = 0
-        num_slots = max(len(slots) for slots in slot_priority_mapping.values())  # Determine the maximum number of slots
+        num_slots = max(len(slots) for slots in slot_priority_mapping.values())
         for subject in list_of_subjects:
             slot = solution[subject]
             if slot in slot_priority_mapping[subject]:
                 index = slot_priority_mapping[subject].index(slot)
-                score = 1 - (index / (num_slots - 1))  # Scale the score between 0 and 1
+                score = 1 - (index / (num_slots - 1))
             else:
-                score = 0  # If slot is not found, score it as 0
+                score = 0
             total_score += score
         return total_score
 
-    # Sorting solutions
-    def sort_solutions(solutions):
-        subject_priority_mapping = {
-            'Java': 1,
-            'DSA': 2,
-            'English': 3,
-            'DSD': 4,
-            'Calculus': 5
-        }
-        return sorted(
-            solutions,
-            key=lambda sol: (-score_solution(sol), [subject_priority_mapping.get(subject, 0) for subject in list_of_subjects])
-        )
+    # Prepare the output, including teacher mapping and scores
+    output_data = []
+    for solution in solutions:
+        score = score_solution(solution)  # Calculate score once per solution
+        for subject in list_of_subjects:
+            slot = solution[subject]
+            teachers_for_slot = [teacher for teacher, slot_ in subject_slot_teacher_mapping[subject] if slot_ == slot]
 
-    # Sort the solutions
-    sorted_solutions = sort_solutions(solutions)
+            # Prepare subject, slot, and teacher for output
+            output_data.append({
+                'subject': subject,
+                'slot': slot,
+                'teachers': ', '.join(teachers_for_slot),
+                'Score': score
+            })
 
-    # Create a DataFrame for the sorted solutions
-    output_data = [
-        {**{subject: solution[subject] for subject in list_of_subjects}, 'Score': score_solution(solution)}
-        for solution in sorted_solutions
-    ]
+    # Create a DataFrame from the output data
+    df_output = pd.DataFrame(output_data)
 
-    df = pd.DataFrame(output_data)
+    # Sort by Score to display the best solutions first
+    df_output = df_output.sort_values(by='Score', ascending=False).reset_index(drop=True)
 
-    return df  # Return DataFrame instead of printing
+    print("\nCombined Timetable:\n", df_output)
+    return df_output  # Return the DataFrame for further use

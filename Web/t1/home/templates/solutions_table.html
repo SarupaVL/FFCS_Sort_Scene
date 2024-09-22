@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solutions Table</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -35,35 +34,20 @@
             </thead>
             <tbody>
                 {% for solution in solutions %}
-                    <tr>
-                        <td>Java</td>
-                        <td>{{ solution.Java }}</td>
-                        <td rowspan="5">{{ solution.Score }}</td> <!-- Ensure rowspan works for this section -->
-                    </tr>
-                    <tr>
-                        <td>DSA</td>
-                        <td>{{ solution.DSA }}</td>
-                    </tr>
-                    <tr>
-                        <td>English</td>
-                        <td>{{ solution.English }}</td>
-                    </tr>
-                    <tr>
-                        <td>DSD</td>
-                        <td>{{ solution.DSD }}</td>
-                    </tr>
-                    <tr>
-                        <td>Calculus</td>
-                        <td>{{ solution.Calculus }}</td>
-                    </tr>
+                    {% for subject, slot in solution.items %}
+                        {% if subject != 'Score' %}
+                            <tr>
+                                <td>{{ subject }}</td>
+                                <td>{{ slot }}</td>
+                                {% if loop.first %}
+                                    <td rowspan="{{ solutions|length }}">{{ solution.Score }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
