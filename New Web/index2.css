@@ -292,10 +292,10 @@
     width: 100%;
     position: relative;
     background-color: #000;
-    background: linear-gradient(to bottom, #ffffff 5%, #000000 5%); 
-    box-sizing: border-box;
+    background: linear-gradient(to bottom, #b0acdc 5%, #000000 5%); 
+    box-sizing:border-box;
     height: 4060px;
-    overflow: hidden;
+    overflow:visible;
     text-align: left;
     font-size: 20px;
     color: #000;
