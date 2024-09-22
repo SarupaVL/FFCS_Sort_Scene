@@ -28,6 +28,8 @@
             <button type="submit" name="refresh" class="btn btn-danger">Refresh</button>
         </form>
 
+        <a href="{% url 'home' %}" class="btn btn-info mt-3">Home</a>
+
         {% if user_subjects %}
         <h2>Your Subjects</h2>
         <table class="table table-bordered table-hover mt-3">
